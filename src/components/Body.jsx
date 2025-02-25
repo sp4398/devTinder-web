@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import Navbar from "./NavBar";
+import NavBar from "./NavBar";
 import Footer from "./Footer";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
@@ -33,11 +33,10 @@ const Body = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavBar />
       <Outlet />
       <Footer />
     </div>
   );
 };
-
 export default Body;

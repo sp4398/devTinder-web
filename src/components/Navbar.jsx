@@ -2,7 +2,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
-import { removeUser } from "../utils/userSlice";
+import {  removeUser } from "../utils/userSlice";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
@@ -29,7 +29,7 @@ const Navbar = () => {
 
       {user && (
         <div className="flex gap-2">
-          <div className="form-control my-2">Welcome, {user.firstName}</div>
+          <div className="form-control my-2">Welcome, {user?.firstName}</div>
           <div className="dropdown dropdown-end mx-5">
             <div
               tabIndex={0}
@@ -37,7 +37,7 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="user photo" src={user.photoUrl} />
+                <img alt="user photo" src={user?.photoUrl} />
               </div>
             </div>
             <ul

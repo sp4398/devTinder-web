@@ -8,24 +8,30 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("hardik@gmail.com");
   const [password, setPassword] = useState("Hardik@123");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (!emailId || !password) {
+      setError("Both fields are required.");
+      return;
+    }
+
+    setLoading(true);
     try {
       const res = await axios.post(
         BASE_URL + "/login",
-        {
-          emailId,
-          password,
-        },
+        { emailId, password },
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      return navigate("/");
+      navigate("/");
     } catch (err) {
-      setError(err?.response?.data)
+      setError(err?.response?.data || "An unexpected error occurred.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,10 +45,12 @@ const Login = () => {
               <span className="label-text">Email</span>
             </div>
             <input
-              type="text"
+              type="email"
               value={emailId}
               className="input input-bordered w-full max-w-xs my-1"
               onChange={(e) => setEmailId(e.target.value)}
+              required
+              aria-label="Email"
             />
           </label>
           <label className="form-control w-full max-w-xs">
@@ -58,8 +66,12 @@ const Login = () => {
           </label>
           <p className="text-red-500">{error}</p>
           <div className="card-actions justify-center my-5">
-            <button className="btn btn-primary" onClick={handleLogin}>
-              Login
+            <button
+              className="btn btn-primary"
+              onClick={handleLogin}
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </button>
           </div>
         </div>
