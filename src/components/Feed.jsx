@@ -30,11 +30,12 @@ const Feed = () => {
     return <h1 className="flex justify-center my-10">No new users founds!</h1>;
 
   return (
-    feed && (
+    feed?.length > 0 && (
       <div className="flex justify-center my-10">
-        <UserCard user={feed[0]} />
+        <UserCard user={feed[3]} />
       </div>
     )
   );
+  
 };
 export default Feed;
