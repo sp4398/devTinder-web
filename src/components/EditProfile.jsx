@@ -97,12 +97,26 @@ const EditProfile = ({ user }) => {
               <div className="label">
                 <span className="label-text">Gender</span>
               </div>
-              <input
-                type="text"
-                value={gender}
-                className="input input-bordered w-full max-w-xs my-1"
-                onChange={(e) => setGender(e.target.value)}
-              />
+              <div className="flex gap-4">
+                            <label className="label cursor-pointer justify-start gap-2">
+                                <input
+                                    type="radio"
+                                    // {...register("gender")}
+                                    className="radio radio-primary"
+                                    value="male"
+                                />
+                                <span className="label-text">Male</span>
+                            </label>
+                            <label className="label cursor-pointer justify-start gap-2">
+                                <input
+                                    type="radio"
+                                    // {...register("gender")}
+                                    className="radio radio-primary"
+                                    value="female"
+                                />
+                                <span className="label-text">Female</span>
+                            </label>
+                        </div>
             </label>
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
