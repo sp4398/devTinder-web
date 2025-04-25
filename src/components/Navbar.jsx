@@ -50,9 +50,9 @@ const Navbar = () => {
                   <span className="badge">New</span>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <a>Settings</a>
-              </li>
+              </li> */}
               <li>
                 <a onClick={handleLogout}>Logout</a>
               </li>
