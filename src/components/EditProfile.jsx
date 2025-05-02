@@ -9,16 +9,16 @@ const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
-  const [about, setAbout] = useState(user.about);
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
+  const [about, setAbout] = useState(user.about || "");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   const saveProfile = async () => {
     try {
       const res = await axios.patch(
-        BASE_URL+"/profile/edit",  
+        BASE_URL + "/profile/edit",
         {
           firstName,
           lastName,
@@ -28,8 +28,10 @@ const EditProfile = ({ user }) => {
           about,
         },
         {
-          headers: { "Content-Type": "application/json" }, // Ensure headers are set
-          withCredentials: true, // Ensure credentials are sent
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       dispatch(addUser(res?.data?.data));
@@ -98,25 +100,23 @@ const EditProfile = ({ user }) => {
                 <span className="label-text">Gender</span>
               </div>
               <div className="flex gap-4">
-                            <label className="label cursor-pointer justify-start gap-2">
-                                <input
-                                    type="radio"
-                                    // {...register("gender")}
-                                    className="radio radio-primary"
-                                    value="male"
-                                />
-                                <span className="label-text">Male</span>
-                            </label>
-                            <label className="label cursor-pointer justify-start gap-2">
-                                <input
-                                    type="radio"
-                                    // {...register("gender")}
-                                    className="radio radio-primary"
-                                    value="female"
-                                />
-                                <span className="label-text">Female</span>
-                            </label>
-                        </div>
+                <label className="label cursor-pointer justify-start gap-2">
+                  <input
+                    type="radio"
+                    className="radio radio-primary"
+                    value="male"
+                  />
+                  <span className="label-text">Male</span>
+                </label>
+                <label className="label cursor-pointer justify-start gap-2">
+                  <input
+                    type="radio"
+                    className="radio radio-primary"
+                    value="female"
+                  />
+                  <span className="label-text">Female</span>
+                </label>
+              </div>
             </label>
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
