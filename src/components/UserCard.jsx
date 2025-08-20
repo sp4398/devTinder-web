@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
+
 const UserCard = ({ user }) => {
-    // const { firstName, lastName, photoUrl, age, gender, about } = user;
-    console.log(user);
+  // const { firstName, lastName, photoUrl, age, gender, about } = user;
+  console.log(user);
 
   return (
     <div className="card bg-base-300 w-96 shadow-xl">
@@ -18,6 +20,17 @@ const UserCard = ({ user }) => {
       </div>
     </div>
   );
+};
+
+UserCard.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    photoUrl: PropTypes.string,
+    age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    gender: PropTypes.string,
+    about: PropTypes.string,
+  }).isRequired,
 };
 
 export default UserCard;
