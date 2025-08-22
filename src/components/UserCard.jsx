@@ -1,19 +1,29 @@
 const UserCard = ({ user }) => {
-  // const { firstName, lastName, photoUrl, age, gender, about } = user;
-  console.log(user);
+  const {
+    firstName = "",
+    lastName = "",
+    photoUrl = "https://via.placeholder.com/150",
+    age,
+    gender,
+    about = "No details available",
+  } = user || {};
 
   return (
     <div className="card bg-base-300 w-96 shadow-xl">
       <figure>
-        <img className="w-100 h-90" src={user?.photoUrl} alt="user" />
+        <img
+          className="w-full h-90 object-cover"
+          src={photoUrl}
+          alt={`${firstName} ${lastName}`}
+        />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{user?.firstName + " " + user?.lastName}</h2>
-        {user?.age && user?.gender && <p>{user?.age + ", " + user?.gender}</p>}
-        <p>{user?.about}</p>
+        <h2 className="card-title">{firstName + " " + lastName}</h2>
+        {age && gender && <p>{age + ", " + gender}</p>}
+        <p>{about}</p>
         <div className="card-actions justify-center my-5">
           <button className="btn btn-primary">Ignore</button>
-          <button className="btn btn-secondary">Intersted</button>
+          <button className="btn btn-secondary">Interested</button>
         </div>
       </div>
     </div>

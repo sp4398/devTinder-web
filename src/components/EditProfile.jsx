@@ -19,34 +19,28 @@ const EditProfile = ({ user }) => {
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
-        {
-          firstName,
-          lastName,
-          photoUrl,
-          age,
-          gender,
-          about,
-        },
+        { firstName, lastName, photoUrl, age, gender, about },
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
       dispatch(addUser(res?.data?.data));
     } catch (error) {
       console.error("PATCH request failed:", error);
-      setError(error?.response?.data || "Something went wrong");
+      setError(error?.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
-    <div className="flex justify-center my-15">
+    <div className="flex justify-center my-12">
+      {/* Form Section */}
       <div className="flex justify-center mx-5">
         <div className="card bg-neutral w-96 shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-2xl justify-center">Edit Profile</h2>
+
+            {/* First Name */}
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
                 <span className="label-text">First Name</span>
@@ -57,9 +51,10 @@ const EditProfile = ({ user }) => {
                 className="input input-bordered w-full max-w-xs my-1"
                 onChange={(e) => setFirstName(e.target.value)}
                 required
-                aria-label="First Name"
               />
             </label>
+
+            {/* Last Name */}
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
                 <span className="label-text">Last Name</span>
@@ -70,9 +65,10 @@ const EditProfile = ({ user }) => {
                 className="input input-bordered w-full max-w-xs my-1"
                 onChange={(e) => setLastName(e.target.value)}
                 required
-                aria-label="Last Name"
               />
             </label>
+
+            {/* Photo URL */}
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
                 <span className="label-text">Photo URL</span>
@@ -84,17 +80,23 @@ const EditProfile = ({ user }) => {
                 onChange={(e) => setPhotoUrl(e.target.value)}
               />
             </label>
+
+            {/* Age */}
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
                 <span className="label-text">Age</span>
               </div>
               <input
-                type="text"
+                type="number"
                 value={age}
+                min="18"
+                max="100"
                 className="input input-bordered w-full max-w-xs my-1"
                 onChange={(e) => setAge(e.target.value)}
               />
             </label>
+
+            {/* Gender */}
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
                 <span className="label-text">Gender</span>
@@ -103,21 +105,29 @@ const EditProfile = ({ user }) => {
                 <label className="label cursor-pointer justify-start gap-2">
                   <input
                     type="radio"
-                    className="radio radio-primary"
+                    name="gender"
                     value="male"
+                    className="radio radio-primary"
+                    checked={gender === "male"}
+                    onChange={(e) => setGender(e.target.value)}
                   />
                   <span className="label-text">Male</span>
                 </label>
                 <label className="label cursor-pointer justify-start gap-2">
                   <input
                     type="radio"
-                    className="radio radio-primary"
+                    name="gender"
                     value="female"
+                    className="radio radio-primary"
+                    checked={gender === "female"}
+                    onChange={(e) => setGender(e.target.value)}
                   />
                   <span className="label-text">Female</span>
                 </label>
               </div>
             </label>
+
+            {/* About */}
             <label className="form-control w-full max-w-xs my-1">
               <div className="label">
                 <span className="label-text">About</span>
@@ -130,7 +140,10 @@ const EditProfile = ({ user }) => {
               />
             </label>
 
-            <p className="text-red-500">{error}</p>
+            {/* Error */}
+            {error && <p className="text-red-500">{error}</p>}
+
+            {/* Save */}
             <div className="card-actions justify-center my-1">
               <button className="btn btn-primary" onClick={saveProfile}>
                 Save
@@ -139,6 +152,8 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
+
+      {/* Live Preview */}
       <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} />
     </div>
   );
