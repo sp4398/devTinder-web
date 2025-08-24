@@ -29,13 +29,13 @@ const Connections = () => {
   return (
     <div className="text-center my-10">
       <h1 className="text-bold text-3xl text-white">Connections</h1>
-      {connections.map((connection, idx) => {
-        const { firstName, lastName, age, photoUrl, about, gender } =
+      {connections.map((connection) => {
+        const { _id, firstName, lastName, age, photoUrl, about, gender } =
           connection;
 
         return (
           <div
-            key={connection.id || idx}
+            key={_id}
             className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
           >
             <div>
