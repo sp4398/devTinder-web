@@ -32,10 +32,9 @@ const Feed = () => {
   return (
     feed?.length > 0 && (
       <div className="flex justify-center my-10">
-        <UserCard user={feed[3]} />
+        <UserCard user={feed[0]} />
       </div>
     )
   );
-  
 };
 export default Feed;
