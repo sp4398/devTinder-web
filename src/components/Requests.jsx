@@ -10,7 +10,7 @@ const Requests = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/request/received", {
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
 
@@ -28,7 +28,7 @@ const Requests = () => {
   const handleClick = async (status, _id) => {
     try {
       const res = await axios.post(
-        BASE_URL + "/request/review" + status + "/" + _id,
+        BASE_URL + "/request/review/" + status + "/" + _id,
         {},
         { withCredentials: true }
       );
@@ -52,7 +52,7 @@ const Requests = () => {
         return (
           <div
             key={_id}
-            className="flex justify-between items-center m-4 p-4 rounded-lg bg-base-300 w-2/3 mx-auto"
+            className="flex justify-between items-center m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
           >
             <div>
               <img
@@ -65,7 +65,7 @@ const Requests = () => {
               <h2 className="font-bold text-xl">
                 {firstName + " " + lastName}
               </h2>
-              <p>{about}</p>
+              {/* <p>{about}</p> */}
               {age && gender && <p>{age + ", " + gender}</p>}
             </div>
             <div>
