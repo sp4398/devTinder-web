@@ -7,6 +7,7 @@ import { useEffect } from "react";
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
+
   const fetchRequests = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/request/received", {
