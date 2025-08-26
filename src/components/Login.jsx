@@ -6,8 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("hardik@gmail.com");
-  const [password, setPassword] = useState("Hardik@123");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [isLoginForm, setIsLoginForm] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -39,7 +42,37 @@ const Login = () => {
     <div className="flex justify-center my-15 ">
       <div className="card bg-neutral w-96 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title text-2xl justify-center">Login</h2>
+          <h2 className="card-title text-2xl justify-center">
+            {isLoginForm ? "Login" : "Sign Up"}
+          </h2>
+          {!isLoginForm && (
+            <>
+              <label className="form-control w-full max-w-xs my-5">
+                <div className="label">
+                  <span className="label-text">First Name</span>
+                </div>
+                <input
+                  type="email"
+                  value={firstName}
+                  className="input input-bordered w-full max-w-xs my-1"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                  aria-label="Email"
+                />
+              </label>
+              <label className="form-control w-full max-w-xs">
+                <div className="label">
+                  <span className="label-text">Last Name</span>
+                </div>
+                <input
+                  type="password"
+                  value={lastName}
+                  className="input input-bordered w-full max-w-xs my-1"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </label>
+            </>
+          )}
           <label className="form-control w-full max-w-xs my-5">
             <div className="label">
               <span className="label-text">Email</span>
@@ -71,9 +104,15 @@ const Login = () => {
               onClick={handleLogin}
               disabled={loading}
             >
-              {loading ? "Logging in..." : "Login"}
+              {isLoginForm ? "Login" : "Sign Up"}
             </button>
           </div>
+          <p
+            className="m-auto cursor-pointer"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm ? "New User? Sign Up" : "Existing User? Login"}
+          </p>
         </div>
       </div>
     </div>
