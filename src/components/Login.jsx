@@ -21,7 +21,6 @@ const Login = () => {
       setError("Both fields are required.");
       return;
     }
-
     setLoading(true);
     try {
       const res = await axios.post(
@@ -35,6 +34,20 @@ const Login = () => {
       setError(err?.response?.data || "An unexpected error occurred.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
     }
   };
 
@@ -101,7 +114,7 @@ const Login = () => {
           <div className="card-actions justify-center my-5">
             <button
               className="btn btn-primary"
-              onClick={handleLogin}
+              onClick={isLoginForm ? handleLogin : handleSignUp}
               disabled={loading}
             >
               {isLoginForm ? "Login" : "Sign Up"}
