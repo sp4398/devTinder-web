@@ -40,11 +40,14 @@ const Requests = () => {
 
   if (!requests) return;
 
-  if (requests.length === 0) return <h1>No Requests Found</h1>;
+  if (requests.length === 0)
+    return (
+      <h1 className="flex justify-center my-10 text-2xl">No Requests Found</h1>
+    );
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-3xl text-white">Connections Requests</h1>
+      <h1 className="text-bold text-2xl text-white">Connections Requests</h1>
       {requests.map((request) => {
         const { _id, firstName, lastName, age, photoUrl, about, gender } =
           request.fromUserId;
