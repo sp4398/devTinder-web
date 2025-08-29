@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
-  const [isLoginForm, setIsLoginForm] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const Login = () => {
                   <span className="label-text">Last Name</span>
                 </div>
                 <input
-                  type="password"
+                  type="text"
                   value={lastName}
                   className="input input-bordered w-full max-w-xs my-1"
                   onChange={(e) => setLastName(e.target.value)}
