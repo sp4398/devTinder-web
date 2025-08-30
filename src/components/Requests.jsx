@@ -14,8 +14,7 @@ const Requests = () => {
         withCredentials: true,
       });
 
-      dispatch(addRequests(res.data.data));
-      console.log(res.data.data);
+      dispatch(addRequests(res?.data?.data));
     } catch (error) {
       //
     }
