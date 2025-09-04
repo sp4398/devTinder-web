@@ -12,6 +12,10 @@ const Chat = () => {
   useEffect(() => {
     const socket = createSocketConnection();
     socket.emit("joinChat", { userId, targetedUserId });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
