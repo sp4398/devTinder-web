@@ -5,18 +5,40 @@ import { useSelector } from "react-redux";
 
 const Chat = () => {
   const { targetedUserId } = useParams();
-  const [messages, setMessages] = useState([{ text: "hello" }]);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const user = useSelector((store) => store.user);
   const userId = user?._id;
 
   useEffect(() => {
+    if (!userId) return;
     const socket = createSocketConnection();
-    socket.emit("joinChat", { userId, targetedUserId });
+    socket.emit("joinChat", {
+      firstName: user.firstName,
+      userId,
+      targetedUserId,
+    });
+
+    socket.on("receiveMessage", ({ firstName, text }) => {
+      console.log(firstName + ": " + text);
+      setMessages((messages) => [...messages, { firstName, text }]);
+    });
 
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [userId, targetedUserId]);
+
+  const sendMessage = () => {
+    const socket = createSocketConnection();
+    socket.emit("sendMessage", {
+      firstName: user.firstName,
+      userId,
+      targetedUserId,
+      text: newMessage,
+    });
+    setNewMessage("");
+  };
 
   return (
     <div className="w-1/2 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
@@ -26,18 +48,24 @@ const Chat = () => {
           return (
             <div key={idx} className="chat chat-start">
               <div className="chat-header">
-                Saurav
+                {msg.firstName}
                 <time className="text-xs opacity-50">2 hours ago</time>
               </div>
-              <div className="chat-bubble">You were the Chosen One!</div>
+              <div className="chat-bubble">{msg.text}</div>
               <div className="chat-footer opacity-50">Seen</div>
             </div>
           );
         })}
       </div>
       <div className="p-5 border-t border-gray-600 flex items-center gap-2">
-        <input className="flex-1 border border-gray-500 text-white rounded p-2"></input>
-        <button className="btn btn-secondary">Send</button>
+        <input
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          className="flex-1 border border-gray-500 text-white rounded p-2"
+        ></input>
+        <button onClick={sendMessage} className="btn btn-secondary">
+          Send
+        </button>
       </div>
     </div>
   );
