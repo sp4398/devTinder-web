@@ -8,8 +8,8 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -52,30 +52,33 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center my-15 ">
-      <div className="card bg-neutral w-96 shadow-xl">
+    <div className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-pink-500 via-red-500 to-orange-400 overflow-hidden">
+      <div className="absolute top-10 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+      <div className="absolute top-40 right-20 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+      <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+      <div className="card bg-neutral bg-opacity-90 backdrop-blur-xl w-96 shadow-2xl relative z-10">
         <div className="card-body">
-          <h2 className="card-title text-2xl justify-center">
-            {isLoginForm ? "Login" : "Sign Up"}
-          </h2>
+          <h3 className="text-lg text-center text-gray-200 mb-4">
+            {isLoginForm ? "Login to Continue" : "Create an Account"}
+          </h3>
+
           {!isLoginForm && (
             <>
-              <label className="form-control w-full max-w-xs my-5">
+              <label className="form-control w-full max-w-xs my-3">
                 <div className="label">
-                  <span className="label-text">First Name</span>
+                  <span className="label-text text-white">First Name</span>
                 </div>
                 <input
-                  type="email"
+                  type="text"
                   value={firstName}
                   className="input input-bordered w-full max-w-xs my-1"
                   onChange={(e) => setFirstName(e.target.value)}
                   required
-                  aria-label="Email"
                 />
               </label>
-              <label className="form-control w-full max-w-xs">
+              <label className="form-control w-full max-w-xs my-3">
                 <div className="label">
-                  <span className="label-text">Last Name</span>
+                  <span className="label-text text-white">Last Name</span>
                 </div>
                 <input
                   type="text"
@@ -86,9 +89,10 @@ const Login = () => {
               </label>
             </>
           )}
-          <label className="form-control w-full max-w-xs my-5">
+
+          <label className="form-control w-full max-w-xs my-3">
             <div className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text text-white">Email</span>
             </div>
             <input
               type="email"
@@ -96,12 +100,12 @@ const Login = () => {
               className="input input-bordered w-full max-w-xs my-1"
               onChange={(e) => setEmailId(e.target.value)}
               required
-              aria-label="Email"
             />
           </label>
-          <label className="form-control w-full max-w-xs">
+
+          <label className="form-control w-full max-w-xs my-3">
             <div className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text text-white">Password</span>
             </div>
             <input
               type="password"
@@ -110,18 +114,21 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <p className="text-red-500">{error}</p>
+
+          <p className="text-red-400 text-center">{error}</p>
+
           <div className="card-actions justify-center my-5">
             <button
-              className="btn btn-primary"
+              className="btn bg-gradient-to-r from-pink-500 to-orange-400 text-white font-bold hover:opacity-90 shadow-lg"
               onClick={isLoginForm ? handleLogin : handleSignUp}
               disabled={loading}
             >
               {isLoginForm ? "Login" : "Sign Up"}
             </button>
           </div>
+
           <p
-            className="m-auto cursor-pointer"
+            className="m-auto cursor-pointer text-sm text-gray-300 hover:text-white"
             onClick={() => setIsLoginForm((value) => !value)}
           >
             {isLoginForm ? "New User? Sign Up" : "Existing User? Login"}
