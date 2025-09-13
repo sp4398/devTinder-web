@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constants";
 
 const Chat = () => {
   const { targetedUserId } = useParams();
+  // const [targetedUser, setTargetedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const user = useSelector((store) => store.user);
@@ -25,8 +26,22 @@ const Chat = () => {
     });
     setMessages(chatMessages);
   };
+
+  // const fetchTargetedUser = async () => {
+  //   try {
+  //     const res = await axios.get(BASE_URL + "/user/" + targetedUserId, {
+  //       withCredentials: true,
+  //     });
+  //     setTargetedUser(res.data); // assuming res.data contains { firstName, lastName }
+  //   } catch (err) {
+  //     console.error("Error fetching user:", err);
+  //   }
+  // };
+
   useEffect(() => {
     fetchChat();
+    // fetchTargetedUser();
+    // }, [targetedUserId]);
   }, []);
 
   useEffect(() => {
